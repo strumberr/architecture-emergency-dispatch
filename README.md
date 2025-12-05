@@ -1,4 +1,4 @@
-# 🚨 Emergency Dispatch System  
+# Emergency Dispatch System  
 *FE405 – Designing Apps & APIs*
 
 ## Summary
