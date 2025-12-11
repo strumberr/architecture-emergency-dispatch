@@ -46,3 +46,22 @@ Permissions depend on role.
 - Citizens can only submit and view their own reports  
 - Dispatchers can view all reports and assign responders  
 - Responders can only view incidents assigned to them and update status  
+
+---
+# Flow charts
+
+```mermaid
+sequenceDiagram
+    actor Citizen
+    Citizen ->> AuthService: Authenticate user
+    AuthService -->> Citizen: Token
+
+    Citizen ->> IncidentService: report
+    IncidentService ->> RedisDB: Store report in hot cache
+    RedisDB -->> IncidentService: OK
+
+    IncidentService ->> NotificationService: Notify dispatchers of new report
+    NotificationService -->> DispatcherDashboard: Push update
+
+    IncidentService -->> Citizen: Report created (ID + status)
+```
