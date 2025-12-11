@@ -1,3 +1,4 @@
+```mermaid
 graph TD;
     actor Citizen
     Citizen ->> AuthService: Authenticate user
@@ -11,3 +12,4 @@ graph TD;
     NotificationService -->> DispatcherDashboard: Push update
 
     IncidentService -->> Citizen: Report created (ID + status)
+```
