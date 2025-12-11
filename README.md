@@ -48,7 +48,9 @@ Permissions depend on role.
 - Responders can only view incidents assigned to them and update status  
 
 ---
-# Flow charts
+# User Flows
+
+### This is the example flow chart of a citizen making a report:
 
 ```mermaid
 sequenceDiagram
@@ -64,4 +66,84 @@ sequenceDiagram
     NotificationService -->> DispatcherDashboard: Push update
 
     IncidentService -->> Citizen: Report created (ID + status)
+```
+
+
+### This is the example flow chart of the dispatcher receiving the report and assigning a responder:
+```mermaid
+sequenceDiagram
+    actor Dispatcher
+    participant Dashboard
+    participant AuthService
+    participant RedisDB
+    participant NotificationService
+    participant ResponderApp
+
+    Dispatcher ->> AuthService: Login
+    AuthService -->> Dispatcher: Token
+
+    Dispatcher ->> Dashboard: Open incident list
+    Dashboard <<->> RedisDB: Websocket incidents
+
+
+    Dispatcher ->> RedisDB: Dispatcher assigns reponder
+    RedisDB ->> NotificationService: Send assignment notification
+
+    NotificationService ->> ResponderApp: Push/SMS/Telegram message
+    RedisDB -->> Dashboard: Assignment confirmed
+```
+
+
+### This is the example flow chart of the reponder receiving their report from dispatch
+```mermaid
+sequenceDiagram
+    actor Responder
+    participant ResponderApp
+    participant AuthService
+    participant AssignmentHandler
+    participant RedisDB
+    participant NotificationService
+    participant DispatcherDashboard
+    participant CitizenApp
+
+    Responder ->> AuthService: Login
+    AuthService -->> Responder: Token
+
+    NotificationService ->> ResponderApp: New assignment received
+
+    Responder ->> AssignmentHandler: Accept or Decline assignment
+    AssignmentHandler ->> RedisDB: Update incident status in hot store
+    RedisDB -->> AssignmentHandler: OK
+
+    AssignmentHandler ->> NotificationService: Dispatch status update event
+
+    NotificationService ->> DispatcherDashboard: Push updated incident status
+    NotificationService ->> CitizenApp: Push updated incident status
+    NotificationService -->> ResponderApp: Status acknowledged
+```
+
+
+### This is the example flow chart of how the system would use Redis as a quick and temp system for reports, which after a few seconds would get moved to the postgreSQL DB for long term storage
+```mermaid
+sequenceDiagram
+    participant RedisDB
+    participant BackgroundWorker
+    participant PostgreSQL
+    participant S3
+
+    loop Every few seconds
+        BackgroundWorker ->> RedisDB: Scan for new/unprocessed reports
+        RedisDB -->> BackgroundWorker: Return report data
+
+        alt Report contains media
+            BackgroundWorker ->> S3: Upload media files
+            S3 -->> BackgroundWorker: Return media URLs
+        end
+
+        BackgroundWorker ->> PostgreSQL: INSERT report (with media URLs if any)
+        PostgreSQL -->> BackgroundWorker: Insert OK
+
+        BackgroundWorker ->> RedisDB: Mark report as processed OR remove from Redis
+        RedisDB -->> BackgroundWorker: OK
+    end
 ```
