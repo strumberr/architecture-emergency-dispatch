@@ -94,7 +94,7 @@ sequenceDiagram
 ```
 
 
-### This is the example flow chart of the reponder receiving their report from dispatch
+### This is the example flow chart of the reponder receiving their report from dispatch:
 ```mermaid
 sequenceDiagram
     actor Responder
@@ -123,7 +123,7 @@ sequenceDiagram
 ```
 
 
-### This is the example flow chart of how the system would use Redis as a quick and temp system for reports, which after a few seconds would get moved to the postgreSQL DB for long term storage
+### This is the example flow chart of how the system would use Redis as a quick and temp system for reports, which after a few seconds would get moved to the postgreSQL DB for long term storage:
 ```mermaid
 sequenceDiagram
     participant RedisDB
