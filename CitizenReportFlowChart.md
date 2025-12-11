@@ -1,5 +1,5 @@
 ```mermaid
-graph TD;
+sequenceDiagram
     actor Citizen
     Citizen ->> AuthService: Authenticate user
     AuthService -->> Citizen: Token
