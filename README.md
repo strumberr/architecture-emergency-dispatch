@@ -229,3 +229,14 @@ Future phases would focus less on system structure and more on the people using 
 One likely direction is improving how citizens understand what is happening after they submit a report. For example, clearer status messages or simple explanations of what each stage means could help reduce anxiety during stressful situations. This would be guided by feedback from citizens who feel unsure about whether their report is being handled.
 
 Another future improvement could focus on dispatcher workload. If dispatchers begin to manage many incidents at once, tools such as suggested responder assignments, clearer visual grouping of related incidents, or simple reminders for unassigned cases might become useful. These features would only be added if dispatchers report feeling overloaded or if response times begin to slip.
+
+
+## Project Implementation Teams
+
+If I were building the MVP today, I would keep the team small. I remember from agile discussions that small, cross-functional teams tend to move faster early on, and at this stage the system is still simple enough that splitting into multiple teams would probably slow things down more than help.
+
+For the MVP, I would use one team of around three to four developers. This team would work across the whole system, including the citizen app, dispatcher dashboard, responder interface, backend logic, and database. I have heard that this kind of setup helps build shared context early, which feels especially important for a system where all parts are tightly connected and mistakes can have real consequences.
+
+Once the system moves into Phase I and becomes a fully releasable product, the team structure would likely need to change as the scope grows. As more features are added and reliability becomes more important, it would make sense to start splitting responsibilities more clearly. I remember learning about Conway’s Law, which suggests that system structure often mirrors team structure, so doing this intentionally could help keep the system easier to reason about.
+
+At that point, I would expect two or three small teams. One team could mainly focus on the user facing interfaces, while another focuses on backend logic and data reliability. Decisions about changing the team structure would be guided by practical signals such as slower development, higher incident volume, or feedback from users about delays or system issues, rather than following a rigid plan decided in advance.
