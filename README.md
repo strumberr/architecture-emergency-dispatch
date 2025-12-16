@@ -4,6 +4,9 @@ FE405 – Designing Apps and APIs
 ## Summary
 This project is an emergency reporting and dispatch system. Citizens submit incidents, dispatchers manage those incidents, and responders receive assignments and update the status. 
 
+## Project-wide diagram
+[Diagram link here](https://lucid.app/lucidchart/79dea055-a9cb-4302-9260-7a598cb9c69c/edit?viewport_loc=-254%2C-1037%2C5202%2C3452%2C0_0&invitationId=inv_4de5a35f-2287-49ff-9285-bcca500b6ed7)
+
 ## User roles
 Citizen: submits reports  
 Dispatcher: views reports and assigns responders  
